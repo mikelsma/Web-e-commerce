@@ -19,5 +19,8 @@ public class Product {
     private Integer quantity;
     @Column(name= "photoName")
     private String photoName;
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

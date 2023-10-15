@@ -1,7 +1,11 @@
 package com.ecommerce.online.service;
 
+import com.ecommerce.online.dto.CreateProductDto;
 import com.ecommerce.online.dto.ProductDto;
+import com.ecommerce.online.dto.ProductResponseDto;
+import com.ecommerce.online.entity.Category;
 import com.ecommerce.online.entity.Product;
+import com.ecommerce.online.repository.CategoryRepository;
 import com.ecommerce.online.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.action.internal.EntityActionVetoException;
@@ -18,9 +22,16 @@ public class ProductService {
     ModelMapper modelMapper = new ModelMapper();
     @Autowired
     private ProductRepository productRepository;
-    public ProductDto save(ProductDto productDto) {
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    public ProductResponseDto save(CreateProductDto productDto) {
         Product product =  modelMapper.map(productDto, Product.class);
-        return modelMapper.map(productRepository.save(product), ProductDto.class);
+        Category existingCategory = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(()->
+                new EntityNotFoundException("!category"));
+
+        product.setCategory(existingCategory);
+        return modelMapper.map(productRepository.save(product), ProductResponseDto.class);
     }
     public ProductDto updateProduct(Long id,
                                     ProductDto productDto) {
