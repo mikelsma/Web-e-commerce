@@ -1,6 +1,8 @@
 package com.ecommerce.online.controller;
 
+import com.ecommerce.online.dto.CreateProductDto;
 import com.ecommerce.online.dto.ProductDto;
+import com.ecommerce.online.dto.ProductResponseDto;
 import com.ecommerce.online.entity.Product;
 import com.ecommerce.online.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/save")
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductResponseDto> create(@RequestBody CreateProductDto productDto) {
         return new ResponseEntity<>(productService.save(productDto), HttpStatusCode.valueOf(200));
     }
     @GetMapping("/all")
