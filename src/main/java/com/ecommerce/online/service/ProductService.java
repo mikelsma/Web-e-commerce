@@ -30,7 +30,10 @@ public class ProductService {
         Category existingCategory = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(()->
                 new EntityNotFoundException("!category"));
 
+        System.out.println(existingCategory);
+
         product.setCategory(existingCategory);
+        System.out.println(product);
         return modelMapper.map(productRepository.save(product), ProductResponseDto.class);
     }
     public ProductDto updateProduct(Long id,

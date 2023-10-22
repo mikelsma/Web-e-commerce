@@ -14,7 +14,7 @@ public class Product {
     @Column(name= "description")
     private String description;
     @Column(name= "price")
-    private Long price;
+    private Double price;
     @Column(name= "quantity")
     private Integer quantity;
     @Column(name= "photoName")
